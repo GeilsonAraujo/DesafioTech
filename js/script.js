@@ -12,41 +12,49 @@ fetch(`https://gateway.marvel.com:443/v1/public/characters?ts=${timeStamp}&apike
 			const scrImage = element.thumbnail.path + '.' + element.thumbnail.extension  
 			const nameHero = element.name
 			const description = element.description != "" ? element.description : 'Description unavailable'
-			createDivHero(scrImage, nameHero, description, divHero);
+			const altImg = element.name
+			createDivHero(scrImage, nameHero, description, altImg, divHero);
 		});
 })
 
-function createDivHero(scrImage, nameHero, description, divToAppend) { //Cria o espaço do heroi
+function createDivHero(scrImage, nameHero, description, altImg, divToAppend) { //Cria os cards dos Herois
 	const containerPersonagem = document.createElement('div') 
 	
-	const divPai = document.createElement('div') //Cria uma div do Zero, personagem
-	const divFilho = document.createElement('div') // front
+	const divPersonagem = document.createElement('div') // personagem
+	const divCardFront = document.createElement('div') // front
 	
-	const textName = document.createElement('text') //receberá o nome.
+	const textName = document.createElement('text') 
 	const img = document.createElement('img')
 
-	const divDescription = document.createElement('div') //Receberá a descrição.
+	const divCardBack = document.createElement('div')
 	const textDescription = document.createElement('p')
 
+	//Atribui dados da API aos elementos criado
 	textDescription.textContent = description
 	textName.textContent = nameHero
-	img.src = scrImage 
+	img.src = scrImage
+	img.alt = 'Image of ' + altImg 
 
-	divFilho.appendChild(img)
-	divFilho.appendChild(textName)			
-	divDescription.appendChild(textDescription)
+	//Adiciona informacoes no front
+	divCardFront.appendChild(img)
+	divCardFront.appendChild(textName)	
 
-	divPai.appendChild(divFilho)
-	divPai.appendChild(divDescription)
+	// Adiciona informacao no back
+	divCardBack.appendChild(textDescription)
 
-	containerPersonagem.appendChild(divPai)
+	// Adiciona ao elemento pai
+	divPersonagem.appendChild(divCardFront)
+	divPersonagem.appendChild(divCardBack)
+
+	// Adiciona ao container de personagem
+	containerPersonagem.appendChild(divPersonagem)
 	
-
+	// Adiciona o container na div herois
 	divToAppend.appendChild(containerPersonagem)
 
+	// adiciona classes aos elementos
 	containerPersonagem.classList.add("container-personagem")
-	divFilho.classList.add("front")
-	divDescription.classList.add("back")
-	divPai.classList.add("personagem");
-
+	divCardFront.classList.add("card-front")
+	divCardBack.classList.add("card-back")
+	divPersonagem.classList.add("personagem");
 }

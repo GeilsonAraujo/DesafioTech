@@ -51,7 +51,7 @@ body{
 	
 }
 
-text{
+.personagem text{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,23 +62,23 @@ text{
 	transform: rotateY(180deg);
 }
 
-.front, .back{
+.card-front, .card-back{
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
 }
 
-.back{
+.card-back{
   transform: rotateY(180deg);
 }
 
-.back:before{
+.card-back:before{
 	content: "Description";
 	display: block;
 	margin-top: 10px;
 }
 
-.back p{
+.card-back p{
 	padding: 10px
 }
